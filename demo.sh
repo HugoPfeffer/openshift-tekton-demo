@@ -68,14 +68,6 @@ EOF
 command.install() {
   oc version >/dev/null 2>&1 || err "no oc binary found"
 
-  info "Installing Operator openshift-pipelines"
-  oc apply -f operators/pipeline-operator.yml
-  sleep 1m
-
-  info "Installing Operator openshift-gitops"
-  oc apply -f operators/gitops-operator.yml
-  sleep 1m
-
   info "Creating namespaces $cicd_prj, $dev_prj, $stage_prj"
   oc get ns $cicd_prj 2>/dev/null  || { 
     oc new-project $cicd_prj 
